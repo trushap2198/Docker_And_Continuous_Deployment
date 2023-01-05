@@ -1,0 +1,49 @@
+version: '3'
+
+
+networks:
+  core_buddy:
+    driver: bridge
+  site_trusha:
+    driver: bridge
+  
+
+services:
+  db:
+    build: ./db
+    networks:
+      - core_buddy
+  back-end-apparel:
+    build: ./apparel
+    networks:
+      - core_buddy
+    volumes:
+      - ./apparel:/app
+    ports:
+      - 5003:80
+    depends_on:
+      - db
+  
+  prices-flask:
+    build: ./prices
+    networks:
+      - core_buddy
+      - site_trusha
+    volumes:
+      - ./prices:/app
+    ports:
+      - 5002:80
+    depends_on:
+      - back-end-apparel
+
+  front-end:
+    build: front-end
+    networks:
+      - site_trusha
+    volumes:
+      - ./front-end:/src
+    ports:
+      - 5000:80
+    depends_on:
+      - prices-flask
+    
