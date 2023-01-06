@@ -14,5 +14,18 @@ jobs:
     - name: Checkout the code base
       uses: actions/checkout@v3
     
-    - name: Build the Docker image
-      run: docker build . Dockerfile -t trusha2198/compose:v1
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with: 
+        aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
+        aws-secret-access-key: ${{secret.AWS_SECRET_KEY}}
+        aws-region: us-east-1
+
+    - name: Login to ECR
+      run: aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/a4g7a3o8
+        
+    - name: Build and Push the Docker image
+      run: |
+      docker compose up --build
+      docker compose push
+

@@ -11,10 +11,13 @@ networks:
 services:
   db:
     build: ./db
+    image:  public.ecr.aws/a4g7a3o8/trusha2198/compose:db
     networks:
       - core_buddy
+
   back-end-apparel:
     build: ./apparel
+    image:  public.ecr.aws/a4g7a3o8/trusha2198/compose:back-end-apparel
     networks:
       - core_buddy
     volumes:
@@ -26,6 +29,7 @@ services:
   
   prices-flask:
     build: ./prices
+    image:  public.ecr.aws/a4g7a3o8/trusha2198/compose:prices-flask
     networks:
       - core_buddy
       - site_trusha
@@ -37,7 +41,9 @@ services:
       - back-end-apparel
 
   front-end:
+  
     build: front-end
+    image: public.ecr.aws/a4g7a3o8/trusha2198/compose:front-end
     networks:
       - site_trusha
     volumes:
