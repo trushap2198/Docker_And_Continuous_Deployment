@@ -25,7 +25,8 @@ jobs:
       run: aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/a4g7a3o8
         
     - name: Build and Push the Docker image
-      run: |
-        docker compose up --build
-        docker compose push
+      run: docker compose up --build -d
+    
+    - name: Push the Docker Image
+      run: docker compose push
 
