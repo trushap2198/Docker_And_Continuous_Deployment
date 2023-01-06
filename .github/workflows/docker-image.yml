@@ -26,6 +26,6 @@ jobs:
         
     - name: Build and Push the Docker image
       run: |
-        docker compose up
+        docker compose up --build --parallel
         docker compose push
 
