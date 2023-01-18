@@ -9,14 +9,15 @@ Node JS: API consuming backend for apparels in the database
 PHP: Front-end of the application
 
 
-The images are tagged with the version as the container name to allow a single repository "trusha2198/compose" in the ECR registry to store all the images
-Note: General practice is to use one image per repository, but each related images in one repository, differed by their tagged versions
+The images are tagged with the version as the container name to allow a single repository "trusha2198/compose:" in the ECR registry to store all the images
+Note: General practice is to use one image per repository, but each related images in one repository, differed by their tagged versions : "trusha2198/compose:<unique_tag>"
 
 Docker commands for the local machine:
 ### To build (remember in the detach mode, else the job never ends in the workflow):
   ```
   docker compose up --build -d
   ```
+  
   
 ### To push the composed images
  ```
